@@ -1,8 +1,15 @@
-import MyNavbar from "./Bootstrap/MyNavbar";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import MyMainPage from "./MainPage/MyMainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  return <MyNavbar/>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MyMainPage/>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
