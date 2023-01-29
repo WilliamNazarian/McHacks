@@ -4,6 +4,9 @@ import { db } from "../api/firebase";
 import { onValue, ref, set } from "firebase/database";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/esm/Container";
+import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row'
 
 function MyExpertPage() {
     const { voteId } = useParams();
@@ -36,8 +39,32 @@ function MyExpertPage() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <div>{issue.title}</div>
-            <div>{issue.context}</div>
+            <Container style={{ marginTop: "20px", textAlign: "center" }}>
+                <h1>Expert Opinion</h1>
+            </Container>
+            <Container style={{ marginTop: "20px" }}>
+                <h3>Title</h3>
+                <div>{issue.title}</div>
+            </Container>
+            <Container style={{ marginTop: "20px" }}>
+                <h3>Description</h3>
+                <div>{issue.context}</div>
+            </Container>
+            <Container style={{ marginTop: "20px" }} className="justify-content-md-center">
+                <Row className="justify-content-md-center">
+                    <FloatingLabel
+                        controlId="floatingTextarea"
+                        label="Community Notes"
+                        className="mb-3"
+                        style={{ width: "700px"}}
+                    >
+                        <Form.Control as="textarea" placeholder="Leave a comment here" style={{height: "150px"}}/>
+                    </FloatingLabel>
+                </Row>
+
+            </Container>
+
+
         </>
     );
 }
