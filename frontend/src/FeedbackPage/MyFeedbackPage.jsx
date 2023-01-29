@@ -18,26 +18,58 @@ function MyFeedbackPage() {
   const [options, setOptions] = useState([]);
   const [communityPost, setCommunityPost] = useState();
   const [votes, setVotes] = useState();
+  const [myobj, setMyobj] = useState();
+
+  
+
+  useEffect(() => {
+    const query = ref(db, `votes/${voteId}`);
+    return onValue(query, async (snapshot) => {
+      const res = await snapshot.val();
+      await setVotes(res);
+      
+      if (issue.options !== undefined) {
+        console.log("In");
+        console.log(votes);
+
+        let obj = {};
+        for (const key of issue.options) {
+          obj[key] = 0;
+        }
+
+        for (const key in votes) {
+          let arr = votes[key].vote;
+          for (let i = 0; i < arr.length; i++) {
+            obj[arr[i]] = obj[arr[i]] + i;
+          }
+        }
+
+        console.log(obj);
+        const max = issue.options.length * Object.keys(votes).length;
+
+        for (const key in obj) {
+          obj[key] = (100 - (obj[key] / max) * 100).toFixed(2);
+        }
+        console.log(obj);
+        setMyobj(obj);
+      }
+    });
+  }, [issue]);
 
   useEffect(() => {
     const query = ref(db, `issues/${voteId}`);
     return onValue(query, async (snapshot) => {
       const issue = await snapshot.val();
       setIssue(issue);
-      setOptions(issue.options)
+      setOptions(issue.options);
     });
   }, []);
 
-  useEffect(() => {
-    const query = ref(db, `votes/${voteId}`);
-    return onValue(query, async (snapshot) => {
-      const res = await snapshot.val();
-      setVotes(res)
-    });
-  }, []);
+  console.log(myobj);
+  console.log("vrevrv");
 
   const handleSubmit = () => {
-    event.preventDefault()
+    event.preventDefault();
 
     set(ref(db, `issues/${voteId}`), {
       title: issue.title,
@@ -45,13 +77,13 @@ function MyFeedbackPage() {
       options: issue.options,
       expertField: issue.expertField,
       targetAudience: issue.targetAudience,
-      communityNotes: communityPost
+      communityNotes: communityPost,
     });
-  }
+  };
 
   const handleCommunityPost = (event) => {
-    setCommunityPost(event.target.value)
-  }
+    setCommunityPost(event.target.value);
+  };
 
   return (
     <>
@@ -69,10 +101,8 @@ function MyFeedbackPage() {
       <Container style={{ maxWidth: "600px" }}>
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
-          <InputGroup className="mb-3" style={{width: "30%", margin: "auto", marginTop: "30px"}}>
-              <Form.Control
-                aria-describedby="basic-addon2"
-              />
+            <InputGroup className="mb-3" style={{ width: "30%", margin: "auto", marginTop: "30px" }}>
+              <Form.Control aria-describedby="basic-addon2" />
               <InputGroup.Text id="basic-addon2"> / 10</InputGroup.Text>
               <Button>Submit</Button>
             </InputGroup>
@@ -86,17 +116,16 @@ function MyFeedbackPage() {
                 <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" disabled />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Options</Form.Label>
-              {
-                options.map( (option, index) => {
-                  return (
-                    <Form.Control key={index} style={{ width: "fit-content", marginBottom: "10px" }} type="text" placeholder={option} disabled />
-                  )
-                })
-              }
-            </Form.Group>
-            
+            {myobj !== undefined && (
+              <Form.Group className="mb-3">
+                <Form.Label>Options</Form.Label>
+
+                {options.map((option, index) => {
+                  return <Form.Control key={index} style={{ marginBottom: "10px" }} type="text" placeholder={`${option} scored ${myobj[option]}%`} disabled />;
+                })}
+              </Form.Group>
+            )}
+
             <Form.Group className="mb-3">
               <Form.Label>Community Note</Form.Label>
               <FloatingLabel controlId="floatingTextarea2" label="Enter your opinion on the matter">
@@ -107,7 +136,7 @@ function MyFeedbackPage() {
           <Row>
             <Modal.Footer>
               <div className="col-md-12 text-center" style={{ margin: "auto", width: "80%" }}>
-                <Button variant="primary" type="submit" size="lg" margin="auto" style={{ width: "80%" }}>
+                <Button className="mb-4" variant="primary" type="submit" size="lg" margin="auto" style={{ width: "80%" }}>
                   Submit
                 </Button>
               </div>

@@ -8,9 +8,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 function App() {
-
   return (
-    <div style={{ backgroundColor: "lightblue", height: "100vh" }}>
+    <div style={{ backgroundColor: "lightblue", height: "100%", minHeight:"100vh" }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MyMainPage />} />
