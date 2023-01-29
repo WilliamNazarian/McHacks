@@ -2,6 +2,11 @@ import MyNavbar from "./Bootstrap/MyNavbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import Accordion from 'react-bootstrap/Accordion';
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from 'react-bootstrap/Row';
+import React, { useEffect, useState } from 'react';
+import LoadingButton from "./PressingButton";
 
 function App() {
   const issues = [{
@@ -17,7 +22,7 @@ function App() {
     info: "WHYYYYY"
   }]
 
-  
+
   return (
     <>
       <MyNavbar />
@@ -28,7 +33,14 @@ function App() {
               <Accordion.Item eventKey={index + 50} key={index + 50}>
                 <Accordion.Header>{issue.name}</Accordion.Header>
                 <Accordion.Body>
-                  {issue.info}
+                  <Container>
+                    {issue.info}
+                  </Container>
+                  <br /> <br />
+                  <Container style={{ textAlign: "center" }}>
+                    <LoadingButton title="Send to Experts" />{' '}
+                    <LoadingButton title="Open to the Public" />{' '}
+                  </Container>
                 </Accordion.Body>
               </Accordion.Item>
             )
