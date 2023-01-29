@@ -3,10 +3,13 @@ import MyExpertPage from "./ExpertPage/MyExpertPage";
 import MyPublicPage from "./PublicPage/MyPublicPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+
   return (
-    <>
+    <div style={{ backgroundColor: "lightblue", height: "100vh" }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MyMainPage />} />
@@ -14,7 +17,7 @@ function App() {
           <Route path="/public/:voteId" element={<MyPublicPage />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

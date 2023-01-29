@@ -1,75 +1,74 @@
 import Accordion from "react-bootstrap/Accordion";
 import Container from "react-bootstrap/Container";
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import ProgressBar from "react-bootstrap/ProgressBar";
 import LoadingButton from "./PressingButton";
 import { useState } from "react";
 
 function MyAccordion(props) {
-
   const [now, setNow] = useState(25);
 
   const handleExpert = (index) => {
-    const id = props.issueKeys[index]
-    const issue = props.issues[index]
+    const id = props.issueKeys[index];
+    const issue = props.issues[index];
 
     const config = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         query: issue.expertField,
-        id: id
-      })
+        id: id,
+      }),
     };
 
-    console.log(config)
+    console.log(config);
 
-    fetch('http://localhost:8888/.netlify/functions/linkedin',  config)
-      .then(data => console.log(data))
-      .catch(e => console.log(e))
+    fetch("http://localhost:8888/.netlify/functions/linkedin", config)
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
 
-    setNow(50)
-  }
+    setNow(50);
+  };
 
   const handlePublic = (index) => {
-    const id = props.issueKeys[index]
-    const issue = props.issues[index]
+    const id = props.issueKeys[index];
+    const issue = props.issues[index];
 
     const config = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         query: issue.targetAudience,
-        id: id
-      })
+        id: id,
+      }),
     };
 
-    console.log(config)
+    console.log(config);
 
-    fetch('http://localhost:8888/.netlify/functions/random',  config)
-      .then(data => console.log(data))
-      .catch(e => console.log(e))
+    fetch("http://localhost:8888/.netlify/functions/random", config)
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
 
-    setNow(75)
-  }
+    setNow(75);
+  };
 
   const handleFeedback = (index) => {
-    const id = props.issueKeys[index]
-    const issue = props.issues[index]
+    const id = props.issueKeys[index];
+    const issue = props.issues[index];
 
     const config = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         query: issue.targetAudience,
-        id: id
-      })
+        id: id,
+      }),
     };
 
-    console.log(config)
+    console.log(config);
 
-    fetch('http://localhost:8888/.netlify/functions/feedback',  config)
-      .then(data => console.log(data))
-      .catch(e => console.log(e))
+    fetch("http://localhost:8888/.netlify/functions/feedback", config)
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
 
-    setNow(100)
-  }
+    setNow(100);
+  };
 
   return (
     <>
@@ -91,12 +90,15 @@ function MyAccordion(props) {
                       <ProgressBar striped animated variant="primary" now={now} label={`${now}%`} />
                     </ProgressBar>
                     <br />
-
-                    <span onClick={() => handleExpert(index)} style={{marginRight: '10px'}}><LoadingButton title="Open to Experts"/></span>
-                    <span onClick={() => handlePublic(index)} style={{marginLeft: '10px', marginRight: '10px'}}><LoadingButton title="Open to Public" /></span>
-                    <span onClick={() => handleFeedback(index)} style={{marginLeft: '10px'}}><LoadingButton title="Open for Feedback" /></span>
-
-                    {" "}
+                    <span onClick={() => handleExpert(index)} style={{ marginRight: "10px" }}>
+                      <LoadingButton title="Open to Experts" />
+                    </span>
+                    <span onClick={() => handlePublic(index)} style={{ marginLeft: "10px", marginRight: "10px" }}>
+                      <LoadingButton title="Open to Public" />
+                    </span>
+                    <span onClick={() => handleFeedback(index)} style={{ marginLeft: "10px" }}>
+                      <LoadingButton title="Open for Feedback" />
+                    </span>{" "}
                   </Container>
                 </Accordion.Body>
               </Accordion.Item>
@@ -108,4 +110,4 @@ function MyAccordion(props) {
   );
 }
 
-export default MyAccordion
+export default MyAccordion;
