@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
+import CapitolDome from "../../images/CapitolDome.png"
 
 function MyNavbar(props) {
   const questionModalHandler = () => {
@@ -10,7 +11,7 @@ function MyNavbar(props) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <img src="..\..\..\images\CapitolDome.png"></img>
+        <img src={CapitolDome} height="40px"></img>
         <Navbar.Brand href="#home">Time2Vote</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
