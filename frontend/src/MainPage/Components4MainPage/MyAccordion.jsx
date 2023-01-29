@@ -7,7 +7,12 @@ function MyAccordion(props) {
   
 
   return (
-    <Container style={{ width: "700px" }}>
+    <>
+    <Container>
+      <br></br>
+      <h1 style={{textAlign: "center", marginTop:"20px"}}>Ongoing Polling</h1>
+    </Container>
+    <Container style={{ width: "800px" , marginTop: "100px"}}>
       <Accordion>
         {props.issues.map((issue, index) => {
           return (
@@ -25,6 +30,7 @@ function MyAccordion(props) {
         })}
       </Accordion>
     </Container>
+    </>
   );
 }
 
