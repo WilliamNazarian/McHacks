@@ -15,12 +15,12 @@ function MyModal(props) {
   const textareaRef = useRef(null);
 
   const [typeOfQuestion, setTypeOfQuestion] = useState(null);
-  const [options, setOptions] = useState([""]);
+  const [options, setOptions] = useState(["Yes", "No"]);
 
   const typeOfQuestionHandler = (event) => {
     setTypeOfQuestion(event.target.value);
     if (event.target.value == "yesOrNo") {
-      setOptions(["yes", "No"]);
+      setOptions(["Yes", "No"]);
     } else {
       setOptions([""]);
     }
@@ -60,7 +60,6 @@ function MyModal(props) {
           <Form.Group className="mb-3">
             <Form.Label>Options</Form.Label>
             <Form.Select onChange={typeOfQuestionHandler} aria-label="Default select example">
-              <option>Open this select menu</option>
               <option value="yesOrNo">Yes Or No</option>
               <option value="createOptions">Create Options</option>
             </Form.Select>
