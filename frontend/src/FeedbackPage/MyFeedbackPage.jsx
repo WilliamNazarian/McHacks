@@ -17,6 +17,7 @@ function MyFeedbackPage() {
   const [issue, setIssue] = useState([]);
   const [options, setOptions] = useState([]);
   const [communityPost, setCommunityPost] = useState();
+  const [votes, setVotes] = useState();
 
   useEffect(() => {
     const query = ref(db, `issues/${voteId}`);
@@ -24,6 +25,14 @@ function MyFeedbackPage() {
       const issue = await snapshot.val();
       setIssue(issue);
       setOptions(issue.options)
+    });
+  }, []);
+
+  useEffect(() => {
+    const query = ref(db, `votes/${voteId}`);
+    return onValue(query, async (snapshot) => {
+      const res = await snapshot.val();
+      setVotes(res)
     });
   }, []);
 
