@@ -7,7 +7,6 @@ import { db } from "../../api/firebase";
 import { onValue, ref, set } from "firebase/database";
 import { useRef } from "react";
 
-import MyForm from "./MyForm";
 
 function MyModal(props) {
   const titleRef = useRef(null);
