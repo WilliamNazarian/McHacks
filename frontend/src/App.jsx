@@ -1,3 +1,5 @@
+import MyMainPage from "./MainPage/MyMainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MyNavbar from "./Bootstrap/MyNavbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
@@ -25,7 +27,11 @@ function App() {
 
   return (
     <>
-      <MyNavbar />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MyMainPage/>} />
+      </Routes>
+    </BrowserRouter>
       <Container style={{ width: "700px" }}>
         <Accordion>
           {issues.map((issue, index) => {
