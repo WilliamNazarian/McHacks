@@ -7,6 +7,7 @@ import "./MyPublicPage.css";
 import DragDrop from "./Components4PublicPage/DragDrop";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Alert from 'react-bootstrap/Alert'
 
 function MyPublicPage({ isDragging, text }) {
   const [issue, setIssue] = useState([]);
@@ -26,35 +27,47 @@ function MyPublicPage({ isDragging, text }) {
   console.log(issue.options);
 
   let display = <></>;
+  let title = <></>;
 
   if (issue.options !== undefined) {
     if (issue.options.length === 2 && issue.options[0] === "Yes" && issue.options[1] === "No") {
       display = (
-        <>
-          <Button variant="success">True</Button>
-          <Button variant="success">False</Button>
-        </>
+        <div className="text-center" style={{ marginTop: "50px", marginBottom: "50px" }}>
+          <Button style={{ width:"100px", marginRight: "20px" }} variant="success">Yes</Button>
+          <Button style={{ width:"100px" }} variant="danger">No</Button>
+        </div>
       );
-    } else display = <DragDrop myOptions={issue.options} />;
+
+      title = (
+        <>
+          <Card.Title>Do you support the following statement?</Card.Title>
+        </>
+      )
+    } else {
+      display = <DragDrop myOptions={issue.options} />
+      title = <Card.Title>Rank the following options.</Card.Title>
+    };
   }
 
   return (
     <>
-      <h2 className="text-center" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
+      <h2 className="text-center public-card-title" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
         Your Vote Matters!
       </h2>
       <div className="myWrapper">
-        <Card className="text-center">
-          <Card.Header>
+        <Card style={{width: "100%", maxWidth: "500px", margin: "auto"}}>
+          <Card.Header key="primary" bg="primary">
             <h4>{issue.title}</h4>
           </Card.Header>
           <Card.Body>
-            <Card.Title>Options Ranks (Drag and Drop) </Card.Title>
+            {title}
+            {issue.context}
+            <Alert key="primary" variant="primary" style={{marginTop: "40px"}}>
+              <b>Expert Community Notes</b><br />
+              {issue.communityNotes}
+            </Alert>
             {display}
           </Card.Body>
-          <Card.Footer className="text-muted">
-            <Button variant="primary">Register Answer</Button>
-          </Card.Footer>
         </Card>
       </div>
     </>
