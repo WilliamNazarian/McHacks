@@ -9,6 +9,7 @@ import { onValue, ref, set } from "firebase/database";
 function MyMainPage() {
   const [modalShow, setModalShow] = useState(false);
   const [issues, setIssues] = useState([]);
+  const [issueKeys, setIssueKeys] = useState([]);
 
   const questionModalHandler = () => {
     setModalShow(true);
@@ -21,7 +22,9 @@ function MyMainPage() {
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
       const issues = Object.values(data);
+      const issueKeys = Object.keys(data)
       setIssues(issues)
+      setIssueKeys(issueKeys)
     })
   }, []);
 
@@ -30,7 +33,7 @@ function MyMainPage() {
       <MyModal show={modalShow} onHide={() => setModalShow(false)} />
       <MyNavbar onQuestionClicked={questionModalHandler} />
 
-      <MyAccordion issues={issues} />
+      <MyAccordion issues={issues} issueKeys={issueKeys} />
 
     </>
   );
