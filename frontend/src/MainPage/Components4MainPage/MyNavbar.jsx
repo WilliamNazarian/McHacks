@@ -10,6 +10,7 @@ function MyNavbar(props) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
+        <img src="..\..\..\images\CapitolDome.png"></img>
         <Navbar.Brand href="#home">Time2Vote</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
