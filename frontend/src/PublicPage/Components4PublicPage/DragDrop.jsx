@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SortableItem } from "./SortableItem";
 import Alert from 'react-bootstrap/Alert'
 
-function DragDrop(props) {
+function  DragDrop(props) {
   const [options, setOptions] = useState(props.myOptions);
 
   function handleDragEnd(event) {

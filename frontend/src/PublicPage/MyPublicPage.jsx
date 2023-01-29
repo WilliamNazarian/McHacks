@@ -51,11 +51,11 @@ function MyPublicPage({ isDragging, text }) {
 
   return (
     <>
-      <h2 className="text-center" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
+      <h2 className="text-center public-card-title" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
         Your Vote Matters!
       </h2>
       <div className="myWrapper">
-        <Card style={{width: "100%"}}>
+        <Card style={{width: "100%", maxWidth: "500px", margin: "auto"}}>
           <Card.Header key="primary" bg="primary">
             <h4>{issue.title}</h4>
           </Card.Header>
@@ -64,7 +64,6 @@ function MyPublicPage({ isDragging, text }) {
             {issue.context}
             <Alert key="primary" variant="primary" style={{marginTop: "40px"}}>
               <b>Expert Community Notes</b><br />
-              test
               {issue.communityNotes}
             </Alert>
             {display}
