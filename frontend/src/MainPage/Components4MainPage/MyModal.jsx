@@ -14,6 +14,7 @@ function MyModal(props) {
   const titleRef = useRef(null);
   const textareaRef = useRef(null);
   const expertFieldRef = useRef(null);
+  const targetAudienceRef = useRef(null);
 
   const [typeOfQuestion, setTypeOfQuestion] = useState(null);
   const [options, setOptions] = useState(["Yes", "No"]);
@@ -35,6 +36,7 @@ function MyModal(props) {
       context: textareaRef.current.value,
       options: options,
       expertField: expertFieldRef.current.value,
+      targetAudience: targetAudienceRef.current.value
     });
     console.log(options);
   };
@@ -53,7 +55,7 @@ function MyModal(props) {
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Live Votes</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Create Poll</Modal.Title>
       </Modal.Header>
       <Form onSubmit={formSubmitHandler}>
         <Modal.Body>
@@ -65,6 +67,11 @@ function MyModal(props) {
           <Form.Group className="mb-3" controlId="expertField">
             <Form.Label>Expert Field</Form.Label>
             <Form.Control ref={expertFieldRef} type="text" placeholder="Expert that specializes in this field" />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="targetAudience">
+            <Form.Label>Target Audience</Form.Label>
+            <Form.Control ref={targetAudienceRef} type="text" placeholder="Your target audience" />
           </Form.Group>
 
           <Form.Group className="mb-3">
