@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
 function MyModal(props) {
   const titleRef = useRef(null);
   const textareaRef = useRef(null);
+  const expertFieldRef = useRef(null);
 
   const [typeOfQuestion, setTypeOfQuestion] = useState(null);
   const [options, setOptions] = useState(["Yes", "No"]);
@@ -27,10 +28,13 @@ function MyModal(props) {
   };
 
   const formSubmitHandler = (event) => {
+    console.log("submitted")
     event.preventDefault();
     set(ref(db, `issues/${new Date().getTime()}`), {
       title: titleRef.current.value,
       context: textareaRef.current.value,
+      options: options,
+      expertField: expertFieldRef.current.value,
     });
     console.log(options);
   };
@@ -45,6 +49,7 @@ function MyModal(props) {
     setOptions(data);
   };
 
+
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -52,15 +57,20 @@ function MyModal(props) {
       </Modal.Header>
       <Form onSubmit={formSubmitHandler}>
         <Modal.Body>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="Title">
             <Form.Label>Title</Form.Label>
             <Form.Control ref={titleRef} type="text" placeholder="Enter Title" />
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="expertField">
+            <Form.Label>Expert Field</Form.Label>
+            <Form.Control ref={expertFieldRef} type="text" placeholder="Expert that specializes in this field" />
+          </Form.Group>
+
           <Form.Group className="mb-3">
             <Form.Label>Options</Form.Label>
-            <Form.Select onChange={typeOfQuestionHandler} aria-label="Default select example">
-              <option value="yesOrNo">Yes Or No</option>
+            <Form.Select onChange={typeOfQuestionHandler} >
+              <option value="yesOrNo">Yes Or No Buttons</option>
               <option value="createOptions">Create Options</option>
             </Form.Select>
           </Form.Group>
