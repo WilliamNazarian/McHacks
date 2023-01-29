@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, Component } from "react";
+import { useState, useEffect, Component, useRef } from "react";
 import { db } from "../api/firebase";
 import { onValue, ref, set } from "firebase/database";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,6 +9,16 @@ import Row from 'react-bootstrap/Row';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+
+//const expertAdvice = useRef(null);
+
+// const expertFormSubmitHandler = (event) => {
+//     event.preventDefault();
+//     set(ref(db, `issues/${voteId}`), {
+//       CommunityPost: expertAdvice.current.value
+//     });
+//     console.log(options);
+//   };
 
 function MyExpertPage() {
     const { voteId } = useParams();
@@ -26,11 +36,11 @@ function MyExpertPage() {
 
         return onValue(query, (snapshot) => {
             const data = snapshot.val();
-            console.log(data)
+            //console.log(data)
             setIssue(data)
+            
         })
     }, []);
-
     return (
         <>
             <Navbar bg="dark" variant="dark">
@@ -53,19 +63,22 @@ function MyExpertPage() {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Context</Form.Label>
-                            <FloatingLabel controlId="floatingTextarea2" label={issue.context}>
+                            <FloatingLabel controlId="floatingTextarea10" label={issue.context}>
                                 <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" disabled />
                             </FloatingLabel>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Options</Form.Label>
-                            <FloatingLabel controlId="floatingTextarea2" label={issue.context}>
+                            <FloatingLabel controlId="floatingTextarea11" label={
+                                issue.options
+                                
+                            }>
                                 <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" disabled />
                             </FloatingLabel>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Community Post</Form.Label>
-                            <FloatingLabel controlId="floatingTextarea2" label="Enter your opinion on the matter">
+                            <FloatingLabel controlId="floatingTextarea12" label="Enter your opinion on the matter">
                                 <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" />
                             </FloatingLabel>
                         </Form.Group>
@@ -87,4 +100,12 @@ function MyExpertPage() {
     );
 }
 
+function stringMerger(array){
+    let total = "";
+    for (i of array) {
+        total += i;
+        total += "\n";
+    }
+    return total;
+}
 export default MyExpertPage;
