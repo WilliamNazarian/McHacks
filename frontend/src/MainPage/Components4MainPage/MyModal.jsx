@@ -15,18 +15,16 @@ function MyModal(props) {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    set(ref(db, "issues/q1"), {
+    set(ref(db, `issues/${(new Date()).getTime()}`), {
       title: titleRef.current.value,
-      question: textareaRef.current.value,
+      context: textareaRef.current.value,
     });
-
-    console.log(titleRef.current.value + " " + textareaRef.current.value);
   };
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Discussion</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Live Votes</Modal.Title>
       </Modal.Header>
       <Form onSubmit={formSubmitHandler}>
         <Modal.Body>
@@ -34,9 +32,12 @@ function MyModal(props) {
             <Form.Label>Title</Form.Label>
             <Form.Control ref={titleRef} type="text" placeholder="Enter Title" />
           </Form.Group>
-          <FloatingLabel controlId="floatingTextarea2" label="Question">
-            <Form.Control ref={textareaRef} as="textarea" placeholder="Leave a question here" style={{ height: "150px" }} className="mb-3" />
-          </FloatingLabel>
+          <Form.Group className="mb-3">
+            <Form.Label>Context</Form.Label>
+            <FloatingLabel controlId="floatingTextarea2" label="Provide more context">
+              <Form.Control ref={textareaRef} as="textarea" style={{ height: "150px" }} className="mb-3" />
+            </FloatingLabel>
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.onHide}>

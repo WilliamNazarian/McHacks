@@ -1,6 +1,6 @@
-const  googleIt = require('google-it')
+import googleIt from 'google-it'
 
-const handler = async (event) => {
+export const handler = async (event) => {
   try {
     query = JSON.parse(event.body).query
 
@@ -16,5 +16,3 @@ const handler = async (event) => {
     return { statusCode: 500, body: error.toString() }
   }
 }
-
-module.exports = { handler }

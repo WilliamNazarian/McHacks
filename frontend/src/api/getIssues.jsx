@@ -14,6 +14,8 @@ function GetIssues() {
 
             const issues = Object.values(data);
 
+            
+
             setIssues(issues)
 
         })

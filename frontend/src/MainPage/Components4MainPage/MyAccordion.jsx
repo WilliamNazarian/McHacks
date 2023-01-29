@@ -2,7 +2,23 @@ import Accordion from "react-bootstrap/Accordion";
 import Container from "react-bootstrap/Container";
 import LoadingButton from "./PressingButton";
 
-function myAccordion() {
+function MyAccordion(props) {
+
+  const issues = [
+    {
+      name: "Issue Name",
+      info: "Issue Info"
+    },
+    {
+      name: "Issue Name",
+      info: "Issue Info"
+    },
+    {
+      name: "Issue Name",
+      info: "Issue Info"
+    }
+  ]
+
   return (
     <Container style={{ width: "700px" }}>
       <Accordion>
@@ -25,4 +41,4 @@ function myAccordion() {
   );
 }
 
-export default myAccordion
+export default MyAccordion
