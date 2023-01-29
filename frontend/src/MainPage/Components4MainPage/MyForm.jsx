@@ -1,12 +1,13 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+
 
 import { useRef } from "react";
 
-function MyForm() {
-  const titleRef = useRef(null);
-  const textareaRef = useRef(null);
+function MyForm(props) {
+
+
+  if(props.formSubmitted){
+    props.getRefs({titleRef: titleRef.current.value,textareaRef: textareaRef.current.value})
+  }
 
   return (
     <>

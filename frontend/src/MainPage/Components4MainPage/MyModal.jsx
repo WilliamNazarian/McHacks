@@ -1,36 +1,54 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+
+import { db } from "../../api/firebase";
+import { onValue, ref, set } from "firebase/database";
+import { useRef } from "react";
 
 import MyForm from "./MyForm";
-import { useState } from "react";
 
 function MyModal(props) {
+  const titleRef = useRef(null);
+  const textareaRef = useRef(null);
 
-  const [formSubmitted, setFormSubmitted] = useState(false)
-  
-
-  const formSubmitHandler = (event)=>{
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    props.myOnSubmit()
 
-  }
+    set(ref(db, "issues/q1"), {
+      title: titleRef.current.value,
+      question: textareaRef.current.value,
+    });
+
+    console.log(titleRef.current.value + " " + textareaRef.current.value);
+  };
 
   return (
-    <Form onSubmit={formSubmitHandler}>
-      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Discussion</Modal.Title>
-        </Modal.Header>
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Discussion</Modal.Title>
+      </Modal.Header>
+      <Form onSubmit={formSubmitHandler}>
         <Modal.Body>
-          <MyForm/>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Title</Form.Label>
+            <Form.Control ref={titleRef} type="text" placeholder="Enter Title" />
+          </Form.Group>
+          <FloatingLabel controlId="floatingTextarea2" label="Question">
+            <Form.Control ref={textareaRef} as="textarea" placeholder="Leave a question here" style={{ height: "150px" }} className="mb-3" />
+          </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" type="submit" onClick={props.onHide}>Submit</Button>
-          <Button variant="secondary" onClick={props.onHide}>Close</Button>
+          <Button variant="secondary" onClick={props.onHide}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={props.onHide} type="submit">
+            Submit
+          </Button>
         </Modal.Footer>
-      </Modal>
-    </Form>
+      </Form>
+    </Modal>
   );
 }
 

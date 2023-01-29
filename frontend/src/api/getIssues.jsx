@@ -19,12 +19,6 @@ function GetIssues() {
         })
     }, []);
 
-    const add = () => {
-        set(ref(db, 'issues/issue5'), {
-            title: 'lll'
-        })
-    }
-
     return (
         <div>
             {issues.map((issue, index) => (
