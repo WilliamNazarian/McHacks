@@ -4,30 +4,22 @@ import LoadingButton from "./PressingButton";
 
 function MyAccordion(props) {
 
-  const issues = [
-    {
-      name: "Issue Name",
-      info: "Issue Info"
-    },
-    {
-      name: "Issue Name",
-      info: "Issue Info"
-    },
-    {
-      name: "Issue Name",
-      info: "Issue Info"
-    }
-  ]
+  
 
   return (
-    <Container style={{ width: "700px" }}>
+    <>
+    <Container>
+      <br></br>
+      <h1 style={{textAlign: "center", marginTop:"20px"}}>Ongoing Polling</h1>
+    </Container>
+    <Container style={{ width: "800px" , marginTop: "100px"}}>
       <Accordion>
-        {issues.map((issue, index) => {
+        {props.issues.map((issue, index) => {
           return (
             <Accordion.Item eventKey={index + 50} key={index + 50}>
-              <Accordion.Header>{issue.name}</Accordion.Header>
+              <Accordion.Header>{issue.title}</Accordion.Header>
               <Accordion.Body>
-                <Container>{issue.info}</Container>
+                <Container>{issue.context}</Container>
                 <br /> <br />
                 <Container style={{ textAlign: "center" }}>
                   <LoadingButton title="Send to Experts" /> <LoadingButton title="Open to the Public" />{" "}
@@ -38,6 +30,7 @@ function MyAccordion(props) {
         })}
       </Accordion>
     </Container>
+    </>
   );
 }
 
