@@ -23,9 +23,6 @@ function MyPublicPage({ isDragging, text }) {
     });
   }, []);
 
-  //1674978776666
-  console.log(issue.options);
-
   let display = <></>;
   let title = <></>;
 
@@ -44,7 +41,7 @@ function MyPublicPage({ isDragging, text }) {
         </>
       )
     } else {
-      display = <DragDrop myOptions={issue.options} />
+      display = <DragDrop myOptions={issue.options} voteId={voteId} />
       title = <Card.Title>Rank the following options.</Card.Title>
     };
   }
