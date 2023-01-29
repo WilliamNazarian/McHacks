@@ -8,6 +8,10 @@ import DragDrop from "./Components4PublicPage/DragDrop";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from 'react-bootstrap/Alert'
+import CapitolDome from "../images/CapitolDome.png"
+import Container from "react-bootstrap/esm/Container";
+import Navbar from "react-bootstrap/Navbar";
+
 
 function MyPublicPage({ isDragging, text }) {
   const [issue, setIssue] = useState([]);
@@ -30,8 +34,8 @@ function MyPublicPage({ isDragging, text }) {
     if (issue.options.length === 2 && issue.options[0] === "Yes" && issue.options[1] === "No") {
       display = (
         <div className="text-center" style={{ marginTop: "50px", marginBottom: "50px" }}>
-          <Button style={{ width:"100px", marginRight: "20px" }} variant="success">Yes</Button>
-          <Button style={{ width:"100px" }} variant="danger">No</Button>
+          <Button style={{ width: "100px", marginRight: "20px" }} variant="success">Yes</Button>
+          <Button style={{ width: "100px" }} variant="danger">No</Button>
         </div>
       );
 
@@ -48,18 +52,26 @@ function MyPublicPage({ isDragging, text }) {
 
   return (
     <>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+            <img src={CapitolDome} height="40px"></img>
+          <Navbar.Brand>Time2Vote</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end"></Navbar.Collapse>
+        </Container>
+      </Navbar>
       <h2 className="text-center public-card-title" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
         Your Vote Matters!
       </h2>
       <div className="myWrapper">
-        <Card style={{width: "100%", maxWidth: "500px", margin: "auto"}}>
+        <Card style={{ width: "100%", maxWidth: "500px", margin: "auto" }}>
           <Card.Header key="primary" bg="primary">
             <h4>{issue.title}</h4>
           </Card.Header>
           <Card.Body>
             {title}
             {issue.context}
-            <Alert key="primary" variant="primary" style={{marginTop: "40px"}}>
+            <Alert key="primary" variant="primary" style={{ marginTop: "40px" }}>
               <b>Expert Community Notes</b><br />
               {issue.communityNotes}
             </Alert>

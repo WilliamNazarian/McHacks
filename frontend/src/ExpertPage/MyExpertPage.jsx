@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import CapitolDome from "../images/CapitolDome.png"
 
 function MyExpertPage() {
   const { voteId } = useParams();
@@ -48,6 +49,7 @@ function MyExpertPage() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
+            <img src={CapitolDome} height="40px"></img>
           <Navbar.Brand>Time2Vote</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end"></Navbar.Collapse>
