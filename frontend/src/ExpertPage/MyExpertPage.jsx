@@ -32,7 +32,14 @@ function MyExpertPage() {
 
   useEffect(() => {
     const query = ref(db, `issues/${voteId}`);
+    return onValue(query, async (snapshot) => {
+        const issue = await snapshot.val();
+        console.log(issue);
+        setIssue(issue);
+        
 
+    });
+  }, []);
 
   return (
     <>
