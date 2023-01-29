@@ -16,7 +16,8 @@
     "linkedin-search-people": "^1.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "twilio": "^3.84.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
