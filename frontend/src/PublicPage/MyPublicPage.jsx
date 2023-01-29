@@ -15,6 +15,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 function MyPublicPage({ isDragging, text }) {
   const [issue, setIssue] = useState([]);
+  const [score, setScore] = useState()
   const { voteId } = useParams();
 
   useEffect(() => {
@@ -24,6 +25,15 @@ function MyPublicPage({ isDragging, text }) {
       const data = await snapshot.val();
       console.log(data);
       await setIssue(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const query = ref(db, `score`);
+
+    return onValue(query, async (snapshot) => {
+      const data = await snapshot.val();
+      setScore(data.value)
     });
   }, []);
 
@@ -60,9 +70,12 @@ function MyPublicPage({ isDragging, text }) {
           <Navbar.Collapse className="justify-content-end"></Navbar.Collapse>
         </Container>
       </Navbar>
-      <h2 className="text-center public-card-title" style={{ paddingTop: "3%", paddingBottom: "5%" }}>
+      <h2 className="text-center public-card-title" style={{ paddingTop: "3%", paddingBottom: "2%" }}>
         Your Vote Matters!
       </h2>
+      <h6 className="text-center public-card-title" style={{ paddingBottom: "5%" }}>
+        This decision-maker has a reputation score of {score}
+      </h6>
       <div className="myWrapper">
         <Card style={{ width: "100%", maxWidth: "500px", margin: "auto" }}>
           <Card.Header key="primary" bg="primary">

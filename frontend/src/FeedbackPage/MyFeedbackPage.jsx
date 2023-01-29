@@ -20,6 +20,9 @@ function MyFeedbackPage() {
   const [votes, setVotes] = useState();
   const [myobj, setMyobj] = useState();
 
+  const [score, setScore] = useState(0);
+  const [oldScore, setOldScore] = useState(0);
+
   
 
   useEffect(() => {
@@ -81,9 +84,30 @@ function MyFeedbackPage() {
     });
   };
 
-  const handleCommunityPost = (event) => {
-    setCommunityPost(event.target.value);
-  };
+  useEffect(() => {
+    const query = ref(db, `score`);
+
+    return onValue(query, async (snapshot) => {
+      const data = await snapshot.val();
+      setOldScore(data.value)
+    });
+  }, []);
+
+  const handleScore = (event) => {
+    console.log(score)
+
+    set(ref(db, `score`), {
+      value: parseInt(oldScore) + parseInt(score)
+    });
+
+    setScore('')
+
+
+  }
+
+  const handleChange = (event) => {
+    setScore(event.target.value)
+  }
 
   return (
     <>
@@ -102,9 +126,9 @@ function MyFeedbackPage() {
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <InputGroup className="mb-3" style={{ width: "30%", margin: "auto", marginTop: "30px" }}>
-              <Form.Control aria-describedby="basic-addon2" />
+              <Form.Control onChange={handleChange} value={score} aria-describedby="basic-addon2" />
               <InputGroup.Text id="basic-addon2"> / 10</InputGroup.Text>
-              <Button>Submit</Button>
+              <Button onClick={handleScore}>Submit</Button>
             </InputGroup>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Title</Form.Label>
@@ -129,19 +153,11 @@ function MyFeedbackPage() {
             <Form.Group className="mb-3">
               <Form.Label>Community Note</Form.Label>
               <FloatingLabel controlId="floatingTextarea2" label="Enter your opinion on the matter">
-                <Form.Control onChange={handleCommunityPost} as="textarea" style={{ height: "150px" }} className="mb-3" defaultValue={issue.communityNotes} disabled />
+                <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" defaultValue={issue.communityNotes} disabled />
               </FloatingLabel>
             </Form.Group>
           </Modal.Body>
-          <Row>
-            <Modal.Footer>
-              <div className="col-md-12 text-center" style={{ margin: "auto", width: "80%" }}>
-                <Button className="mb-4" variant="primary" type="submit" size="lg" margin="auto" style={{ width: "80%" }}>
-                  Submit
-                </Button>
-              </div>
-            </Modal.Footer>
-          </Row>
+          <div style={{height: "50px"}}></div>
         </Form>
       </Container>
     </>
