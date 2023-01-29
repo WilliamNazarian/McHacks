@@ -21,7 +21,7 @@ function MyAccordion(props) {
     };
 
     console.log(config)
-    
+
     fetch('http://localhost:8888/.netlify/functions/linkedin',  config)
       .then(data => console.log(data))
       .catch(e => console.log(e))
@@ -35,7 +35,6 @@ function MyAccordion(props) {
 
   return (
     <>
-<<<<<<< HEAD
       <Container>
         <br></br>
         <h1 style={{ textAlign: "center", marginTop: "20px" }}>Ongoing Polls</h1>
@@ -65,30 +64,6 @@ function MyAccordion(props) {
           })}
         </Accordion>
       </Container>
-=======
-    <Container>
-      <br></br>
-      <h1 style={{textAlign: "center", marginTop:"20px"}}>Ongoing Polls</h1>
-    </Container>
-    <Container style={{ width: "800px" , marginTop: "100px"}}>
-      <Accordion>
-        {props.issues.map((issue, index) => {
-          return (
-            <Accordion.Item eventKey={index + 50} key={index + 50}>
-              <Accordion.Header>{issue.title}</Accordion.Header>
-              <Accordion.Body>
-                <Container>{issue.context}</Container>
-                <br /> <br />
-                <Container style={{ textAlign: "center" }}>
-                  <LoadingButton title="Send to Experts" /> <LoadingButton title="Open to the Public" />{" "}
-                </Container>
-              </Accordion.Body>
-            </Accordion.Item>
-          );
-        })}
-      </Accordion>
-    </Container>
->>>>>>> a4d49a9b90162d0ed2524ea4ccd85ca15b02673c
     </>
   );
 }
