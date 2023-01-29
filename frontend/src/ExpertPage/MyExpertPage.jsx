@@ -5,8 +5,10 @@ import { onValue, ref, set } from "firebase/database";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/esm/Container";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row'
+import Row from 'react-bootstrap/Row';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 function MyExpertPage() {
     const { voteId } = useParams();
@@ -42,28 +44,31 @@ function MyExpertPage() {
             <Container style={{ marginTop: "20px", textAlign: "center" }}>
                 <h1>Expert Opinion</h1>
             </Container>
-            <Container style={{ marginTop: "20px" }}>
-                <h3>Title</h3>
-                <div>{issue.title}</div>
+            <Container>
+                <Form>
+                    <Modal.Body>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" placeholder={issue.title} disabled/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Context</Form.Label>
+                            <FloatingLabel controlId="floatingTextarea2" label={issue.context}>
+                                <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" disabled/>
+                            </FloatingLabel>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary">
+                            Close
+                        </Button> {" "}
+                        
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Container>
-            <Container style={{ marginTop: "20px" }}>
-                <h3>Description</h3>
-                <div>{issue.context}</div>
-            </Container>
-            <Container style={{ marginTop: "20px" }} className="justify-content-md-center">
-                <Row className="justify-content-md-center">
-                    <FloatingLabel
-                        controlId="floatingTextarea"
-                        label="Community Notes"
-                        className="mb-3"
-                        style={{ width: "700px"}}
-                    >
-                        <Form.Control as="textarea" placeholder="Leave a comment here" style={{height: "150px"}}/>
-                    </FloatingLabel>
-                </Row>
-
-            </Container>
-
 
         </>
     );
