@@ -10,25 +10,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-//const expertAdvice = useRef(null);
-
-// const expertFormSubmitHandler = (event) => {
-//     event.preventDefault();
-//     set(ref(db, `issues/${voteId}`), {
-//       CommunityPost: expertAdvice.current.value
-//     });
-//     console.log(options);
-//   };
-
 function MyExpertPage() {
   const { voteId } = useParams();
 
-  const [modalShow, setModalShow] = useState(false);
   const [issue, setIssue] = useState([]);
-
-  const questionModalHandler = () => {
-    setModalShow(true);
-  };
+  const [communityPost, setCommunityPost] = useState();
 
   useEffect(() => {
     const query = ref(db, `issues/${voteId}`);
@@ -36,10 +22,25 @@ function MyExpertPage() {
         const issue = await snapshot.val();
         console.log(issue);
         setIssue(issue);
-        
-
     });
   }, []);
+
+  const handleSubmit = () => {
+    event.preventDefault()
+    
+    set(ref(db, `issues/${voteId}`), {
+      title: issue.title,
+      context: issue.context,
+      options: issue.options,
+      expertField: issue.expertField,
+      targetAudience: issue.targetAudience,
+      communityNotes: communityPost
+    });
+  }
+
+  const handleCommunityPost = (event) => {
+    setCommunityPost(event.target.value)
+  }
 
   return (
     <>
@@ -54,7 +55,7 @@ function MyExpertPage() {
         <h1>Expert Opinion</h1>
       </Container>
       <Container style={{ maxWidth: "600px" }}>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Title</Form.Label>
@@ -73,9 +74,9 @@ function MyExpertPage() {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Community Post</Form.Label>
+              <Form.Label>Community Note</Form.Label>
               <FloatingLabel controlId="floatingTextarea2" label="Enter your opinion on the matter">
-                <Form.Control as="textarea" style={{ height: "150px" }} className="mb-3" />
+                <Form.Control onChange={handleCommunityPost} as="textarea" style={{ height: "150px" }} className="mb-3" defaultValue={issue.communityNotes}/>
               </FloatingLabel>
             </Form.Group>
           </Modal.Body>

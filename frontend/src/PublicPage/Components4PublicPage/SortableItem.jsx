@@ -14,8 +14,7 @@ export function SortableItem(props) {
 
   return (
     <Row className="mb-3">
-      <Col className="m-auto" sm={2}>{`#${props.num}`}</Col>
-      <Col sm={10}>
+      <Col sm={12}>
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
           <Card body style={{backgroundColor: "lightgrey"}}>
             {props.id}
