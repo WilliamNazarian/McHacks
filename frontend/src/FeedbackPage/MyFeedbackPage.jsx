@@ -20,14 +20,11 @@ function MyFeedbackPage() {
   const [votes, setVotes] = useState();
   const [myobj, setMyobj] = useState();
 
-<<<<<<< HEAD
-=======
   const [score, setScore] = useState(0);
   const [oldScore, setOldScore] = useState(0);
 
   
 
->>>>>>> 3fa8f66591411e4c4724ed63e9604493f177056a
   useEffect(() => {
     const query = ref(db, `votes/${voteId}`);
     return onValue(query, async (snapshot) => {
