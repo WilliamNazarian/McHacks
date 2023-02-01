@@ -20,14 +20,12 @@ function MyFeedbackPage() {
   const [votes, setVotes] = useState();
   const [myobj, setMyobj] = useState();
 
-  
-
   useEffect(() => {
     const query = ref(db, `votes/${voteId}`);
     return onValue(query, async (snapshot) => {
       const res = await snapshot.val();
       await setVotes(res);
-      
+
       if (issue.options !== undefined) {
         console.log("In");
         console.log(votes);
